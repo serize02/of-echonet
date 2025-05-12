@@ -1,0 +1,10 @@
+numpy
+pandas
+opencv-python
+torch
+torchvision
+matplotlib
+scikit-learn
+tqdm
+hydra-core
+omegaconf
