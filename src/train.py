@@ -1,19 +1,24 @@
+import sys
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
 import torch
 from torch import optim
+from tqdm import tqdm
 from config import MODEL_SAVE_DIR, LEARNING_RATE, NUM_EPOCHS
 from model import UNet
 from dataset import get_dataloaders
-from utils import dice_loss, bce_dice_loss
+from utils import dice_loss, bce_dice_loss, load_device
 
 def train():
     
-    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    device = load_device()
     model = UNet().to(device)
     optimizer = optim.Adam(model.parameters(), lr=LEARNING_RATE)
     train_loader, val_loader, _ = get_dataloaders()
 
     best_val_loss = float("inf")
-    for epoch in range(NUM_EPOCHS):
+    for epoch in tqdm(range(NUM_EPOCHS), desc='Epochs'):
         model.train()
         train_loss = 0.0
         for images, masks in train_loader:

@@ -1,3 +1,7 @@
+import sys
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
 import os
 import cv2
 import torch
@@ -46,10 +50,9 @@ class EchoDataset(Dataset):
     def __getitem__(self, idx):
         
         img_name = self.image_files[idx]
-        mask_name = img_name.replace(".png", "_mask.png")
 
         image = cv2.imread(os.path.join(self.image_dir, img_name), cv2.IMREAD_GRAYSCALE)
-        mask = cv2.imread(os.path.join(self.mask_dir, mask_name), cv2.IMREAD_GRAYSCALE)
+        mask = cv2.imread(os.path.join(self.mask_dir, img_name), cv2.IMREAD_GRAYSCALE)
 
         if self.augment:
             image = self.train_transforms(image)
