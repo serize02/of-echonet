@@ -82,7 +82,7 @@ if __name__ == '__main__':
 
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
-    # dice_test = evaluate_model(model, test_loader, device)
-    # print(f"Dice Score en test: {dice_test:.4f}")
+    dice_test = evaluate_model(model, test_loader, device)
+    print(f"Dice Score en test: {dice_test:.4f}")
 
-    visualize_predictions(model, test_loader, device)
+    # visualize_predictions(model, test_loader, device)
